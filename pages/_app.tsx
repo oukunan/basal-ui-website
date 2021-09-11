@@ -1,7 +1,7 @@
 import { globalCss } from '@stitches/react'
 import type { AppProps } from 'next/app'
 
-export const resetCSS = globalCss({
+const resetCSS = globalCss({
   'html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, main, menu, nav, output, ruby, section, summary, time, mark, audio, video':
     {
       margin: '0',
@@ -37,8 +37,19 @@ export const resetCSS = globalCss({
   },
 })
 
+const globalCSS = globalCss({
+  '*, *::before, *::after': {
+    boxSizing: 'border-box',
+  },
+  body: {
+    margin: 0,
+  },
+})
+
 function MyApp({ Component, pageProps }: AppProps) {
   resetCSS()
+  globalCSS()
+
   return <Component {...pageProps} />
 }
 export default MyApp
