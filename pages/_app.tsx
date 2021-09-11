@@ -1,5 +1,6 @@
 import { globalCss } from '@stitches/react'
 import type { AppProps } from 'next/app'
+
 import Header from '../components/Header'
 import Box from '../components/layout/Box'
 
@@ -57,7 +58,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Box css={{ position: 'fixed', top: '0', left: '0', width: '100%' }}>
         <Header />
       </Box>
-      <Component {...pageProps} />
+      <Box css={{ paddingTop: '$7' }}>
+        <Component {...pageProps} />
+      </Box>
     </>
   )
 }
