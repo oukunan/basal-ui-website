@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import { getAllPosts } from '../lib/mdx'
 
 export default function BlogList() {
   return (
     <div>
-      <Link href="/posts/first-post">Go go example page</Link>
+      <Link href="/docs">Go go docs page</Link>
     </div>
   )
 }
