@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { styled } from '../stitches.config'
 
 import Box from './layout/Box'
@@ -29,7 +30,9 @@ export default function DocsPage(props: Props) {
               {menu.pages.map((page) => {
                 return (
                   <Box key={page.slug}>
-                    <a href={`/${page.slug}`}>{page.title}</a>
+                    <Link href={'/' + page.slug} passHref>
+                      {page.title}
+                    </Link>
                   </Box>
                 )
               })}

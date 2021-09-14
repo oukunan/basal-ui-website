@@ -1,11 +1,11 @@
 export const documentRoutes = [
   {
-    label: 'Home',
+    label: 'Overview',
     pages: [
-      { title: 'Introduction', slug: 'docs/introduction' },
+      { title: 'Introduction', slug: 'docs/overview/introduction' },
       {
         title: 'Getting started',
-        slug: 'docs/getting-started',
+        slug: 'docs/overview/getting-started',
       },
     ],
   },

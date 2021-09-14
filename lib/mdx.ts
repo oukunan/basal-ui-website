@@ -1,34 +1,51 @@
 import fs from 'fs'
 import path from 'path'
+import glob from 'glob'
 import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 
-export const POSTS_PATH = path.join(process.cwd(), 'data/posts')
+const ROOT_PATH = path.join(process.cwd(), 'data')
 
 export function getSourceOfFile(fileName) {
-  return fs.readFileSync(path.join(POSTS_PATH, fileName))
+  return fs.readFileSync(path.join(ROOT_PATH, fileName))
 }
-export function getAllPosts() {
-  return fs
-    .readdirSync(POSTS_PATH)
-    .filter((path) => /\.mdx?$/.test(path))
-    .map((fileName) => {
-      const source = getSourceOfFile(fileName)
-      const slug = fileName.replace(/\.mdx?$/, '')
-      const { data } = matter(source)
 
-      return {
-        frontmatter: data,
-        slug: slug,
-      }
-    })
+export const getAllFrontmatter = (fromPath: string) => {
+  const PATH = path.join(ROOT_PATH, fromPath)
+  const paths = glob.sync(`${PATH}/**/*.mdx`)
+
+  return paths.map((filePath) => {
+    const source = fs.readFileSync(path.join(filePath), 'utf8')
+    const { data } = matter(source)
+
+    return {
+      ...data,
+      slug: filePath.replace(`${ROOT_PATH}/`, '').replace('.mdx', ''),
+    }
+  })
+}
+
+export const getMdxBySlug = async (basePath: string, slug: string) => {
+  const source = fs.readFileSync(
+    path.join(ROOT_PATH, basePath, `${slug}.mdx`),
+    'utf8'
+  )
+  const { frontmatter, code } = await bundleMDX(source)
+
+  return {
+    frontmatter: {
+      ...frontmatter,
+      slug,
+    },
+    code,
+  }
 }
 
 export const getSinglePost = async (slug) => {
   const source = getSourceOfFile(slug + '.mdx') as any
 
   const { code, frontmatter } = await bundleMDX(source, {
-    cwd: POSTS_PATH,
+    cwd: ROOT_PATH,
   })
 
   return {
