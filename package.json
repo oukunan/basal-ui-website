@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@stitches/react": "^1.1.0",
+    "esbuild": "^0.12.28",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^6.0.1",
     "next": "11.1.2",
