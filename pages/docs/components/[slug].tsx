@@ -2,6 +2,7 @@ import React from 'react'
 
 import { getMDXComponent } from 'mdx-bundler/client'
 import { getAllFrontmatter, getMdxBySlug } from '../../../lib/mdx'
+import { components } from '../../../components/MDXcomponents'
 
 type Props = {
   frontmatter: any
@@ -16,7 +17,7 @@ export default function OverviewDocs(props: Props) {
 
   return (
     <>
-      <Component />
+      <Component components={components} />
     </>
   )
 }
