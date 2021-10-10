@@ -1,10 +1,11 @@
 import React from 'react'
-
 import { getMDXComponent } from 'mdx-bundler/client'
+
 import { getAllFrontmatter, getMdxBySlug } from '../../../lib/mdx'
+import MetaHead from '../../../components/MetaHead'
 
 type Props = {
-  frontmatter: any
+  frontmatter: { title: string; description: string }
   code: string
 }
 
@@ -16,6 +17,7 @@ export default function OverviewDocs(props: Props) {
 
   return (
     <>
+      <MetaHead title={props.frontmatter.title} />
       <Component />
     </>
   )
