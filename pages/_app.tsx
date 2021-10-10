@@ -62,10 +62,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Box css={{ position: 'fixed', top: '0', left: '0', width: '100%' }}>
+      <Box
+        css={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          width: '100%',
+          zIndex: 99,
+        }}
+      >
         <Header />
       </Box>
-      <Box css={{ paddingTop: '$7' }}>
+      <Box css={{ position: 'relative', paddingTop: '$7' }}>
         {isDocs ? (
           <DocsPage>
             <Component {...pageProps} />

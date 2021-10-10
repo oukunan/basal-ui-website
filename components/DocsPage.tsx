@@ -23,24 +23,29 @@ export default function DocsPage(props: Props) {
   return (
     <Box css={{ paddingLeft: SIDE_BAR_WIDTH }}>
       <Sidebar>
-        {documentRoutes.map((menu) => {
-          return (
-            <Box key={menu.label}>
-              <h3>{menu.label}</h3>
-              {menu.pages.map((page) => {
-                return (
-                  <Box key={page.slug}>
-                    <Link href={'/' + page.slug} passHref>
-                      {page.title}
-                    </Link>
-                  </Box>
-                )
-              })}
-            </Box>
-          )
-        })}
+        {documentRoutes.map((menu) => (
+          <Box key={menu.label}>
+            <h3>{menu.label}</h3>
+            {menu.pages.map((page) => (
+              <Box
+                key={page.slug}
+                css={{
+                  a: {
+                    display: 'block',
+                    padding: '$1 $2 ',
+                    textDecoration: 'none',
+                  },
+                }}
+              >
+                <Link href={'/' + page.slug} passHref>
+                  {page.title}
+                </Link>
+              </Box>
+            ))}
+          </Box>
+        ))}
       </Sidebar>
-      <Box>{props.children}</Box>
+      <Box css={{ padding: '$5 $4', maxWidth: '800px' }}>{props.children}</Box>
     </Box>
   )
 }
