@@ -1,5 +1,65 @@
 ---
 title: Accordion
+description: This is a stack collapsible group of section
 ---
 
-This is Accordion component.
+# Accordion
+
+This is Accordion component
+
+## Installation
+
+Using the following command to install the component
+
+```bash
+npm install @basal-ui/accordion
+# or
+yarn add @basal-ui/accordion
+```
+
+## Import
+
+Accordion is compound component but has 4 related components
+
+- Accordion
+- AccordionItem
+- AccrodionHeader
+- AccordionContent
+
+```jsx
+import {
+  Accordion,
+  AccordionItem,
+  AccrodionHeader,
+  AccordionContent,
+} from '@basal-ui/accordion'
+```
+
+Or you just import Accordion and use as compound component pattern **Accordion.Item**
+
+## Example Usage
+
+```jsx
+import { Accordion } from './Accordion'
+
+const Example = () => (
+  <Accordion type="single">
+    <Accordion.Item value="one">
+      <Accordion.Header>This is header 1</Accordion.Header>
+      <Accordion.Content>Content 1</Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item value="two">
+      <Accordion.Header>This is header 2</Accordion.Header>
+      <Accordion.Content>Content 2</Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item value="three">
+      <Accordion.Header>This is header 3</Accordion.Header>
+      <Accordion.Content>Content 3</Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
+)
+```
+
+## Props
+
+### Accordion
