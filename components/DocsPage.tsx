@@ -3,6 +3,7 @@ import { styled } from '../stitches.config'
 
 import Box from './layout/Box'
 import { documentRoutes } from '../lib/documentRoutes'
+import Text from './Text'
 
 type Props = {
   children: React.ReactNode
@@ -25,14 +26,16 @@ export default function DocsPage(props: Props) {
       <Sidebar>
         {documentRoutes.map((menu) => (
           <Box key={menu.label}>
-            <h3>{menu.label}</h3>
+            <Text as="h3" css={{ paddingLeft: '$3' }}>
+              {menu.label}
+            </Text>
             {menu.pages.map((page) => (
               <Box
                 key={page.slug}
                 css={{
                   a: {
                     display: 'block',
-                    padding: '$1 $2 ',
+                    padding: '$1 $3',
                     textDecoration: 'none',
                   },
                 }}
