@@ -48,7 +48,13 @@ export default function DocsPage(props: Props) {
           </Box>
         ))}
       </Sidebar>
-      <Box css={{ padding: '$5 $4', maxWidth: '800px' }}>{props.children}</Box>
+      <Box
+        css={{
+          padding: '$5 $4',
+        }}
+      >
+        {props.children}
+      </Box>
     </Box>
   )
 }
