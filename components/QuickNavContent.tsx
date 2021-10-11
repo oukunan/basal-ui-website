@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useCallback } from 'react'
 import { styled } from '../stitches.config'
+
+import Link from './Link'
 import Box from './layout/Box'
 import { generateAnchorSectionId } from '../lib/anchorSection'
+
+type QuickNavContentProps = {
+  headings: HTMLHeadingElement[]
+}
 
 const ContainerUL = styled('ul', {
   margin: 0,
@@ -12,17 +17,7 @@ const ContainerUL = styled('ul', {
 
 const ListItem = styled('li')
 
-export default function QuickNavContent() {
-  const [headers, setHeaders] = useState<HTMLHeadingElement[]>([])
-
-  useEffect(() => {
-    const articleHeaders: HTMLHeadingElement[] = Array.from(
-      document.querySelectorAll(`[data-heading]`)
-    )
-
-    setHeaders(articleHeaders)
-  }, [])
-
+export default function QuickNavContent(props: QuickNavContentProps) {
   return (
     <Box
       as="aside"
@@ -36,14 +31,14 @@ export default function QuickNavContent() {
     >
       <h4>Quick Content</h4>
       <ContainerUL>
-        {headers.map((item, index) => (
+        {props.headings.map((item, index) => (
           <ListItem
             key={index}
             css={{ paddingLeft: item.tagName === 'H3' ? '$2' : undefined }}
           >
-            <a href={`#${generateAnchorSectionId(item.textContent!)}`}>
+            <Link href={`#${generateAnchorSectionId(item.textContent!)}`}>
               {item.textContent}
-            </a>
+            </Link>
           </ListItem>
         ))}
       </ContainerUL>

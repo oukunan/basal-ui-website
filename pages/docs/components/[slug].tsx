@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useEffect, useState } from 'react'
 import { getMDXComponent } from 'mdx-bundler/client'
 
 import { getAllFrontmatter, getMdxBySlug } from '../../../lib/mdx'
@@ -8,12 +8,22 @@ import QuickNavContent from '../../../components/QuickNavContent'
 import Box from '../../../components/layout/Box'
 
 type Props = {
-  frontmatter: { title: string; description: string }
+  frontmatter: { title: string; description: string; slug: string }
   code: string
 }
 
 export default function OverviewDocs(props: Props) {
+  const mdxWrapperRef = useRef<HTMLInputElement | null>(null)
+  const [headingNodes, setHeadingNodes] = useState<HTMLHeadingElement[]>([])
   const Component = useMemo(() => getMDXComponent(props.code), [props.code])
+
+  useEffect(() => {
+    setHeadingNodes(
+      Array.from(
+        mdxWrapperRef.current?.querySelectorAll('[data-heading]') || []
+      )
+    )
+  }, [props.frontmatter.slug])
 
   return (
     <Box
@@ -22,10 +32,14 @@ export default function OverviewDocs(props: Props) {
       }}
     >
       <MetaHead title={props.frontmatter.title} />
-      <Box css={{ flexGrow: 1, maxWidth: '800px', margin: '0 auto' }}>
+      <Box
+        css={{ flexGrow: 1, maxWidth: '800px', margin: '0 auto' }}
+        ref={mdxWrapperRef}
+      >
         <Component components={components as any} />
       </Box>
-      <QuickNavContent />
+
+      <QuickNavContent headings={headingNodes} />
     </Box>
   )
 }
