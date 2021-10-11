@@ -49,6 +49,9 @@ const globalCSS = globalCss({
     fontFamily: 'Assistant',
     boxSizing: 'border-box',
   },
+  html: {
+    scrollBehavior: 'smooth',
+  },
   body: {
     margin: 0,
   },

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { styled } from '../stitches.config'
 import Box from './layout/Box'
+import { generateAnchorSectionId } from '../lib/anchorSection'
 
 const ContainerUL = styled('ul', {
   margin: 0,
@@ -40,7 +41,9 @@ export default function QuickNavContent() {
             key={index}
             css={{ paddingLeft: item.tagName === 'H3' ? '$2' : undefined }}
           >
-            {item.textContent}
+            <a href={`#${generateAnchorSectionId(item.textContent!)}`}>
+              {item.textContent}
+            </a>
           </ListItem>
         ))}
       </ContainerUL>
