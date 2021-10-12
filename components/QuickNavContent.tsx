@@ -18,6 +18,41 @@ const ContainerUL = styled('ul', {
 const ListItem = styled('li')
 
 export default function QuickNavContent(props: QuickNavContentProps) {
+  const [activeHeading, setActiveHeading] = useState<string | null>(null)
+
+  const findActiveHeading = useCallback(() => {
+    let active: string | null = null
+
+    for (let i = props.headings.length - 1; i >= 0; i--) {
+      // Do not set active heading when the document is nearly top
+      if (document.documentElement.scrollTop < 180) {
+        active = null
+        break
+      }
+
+      const item = props.headings[i]
+
+      if (
+        item.offsetTop <
+        document.documentElement.scrollTop +
+          document.documentElement.clientHeight / 9
+      ) {
+        active = generateAnchorSectionId(item.textContent!)
+        break
+      }
+    }
+
+    setActiveHeading(active)
+  }, [props.headings])
+
+  // TODO: throttle `findActiveHeading` function
+  useEffect(() => {
+    window.addEventListener('scroll', findActiveHeading)
+    return () => {
+      window.removeEventListener('scroll', findActiveHeading)
+    }
+  }, [findActiveHeading])
+
   return (
     <Box
       as="aside"
@@ -34,9 +69,19 @@ export default function QuickNavContent(props: QuickNavContentProps) {
         {props.headings.map((item, index) => (
           <ListItem
             key={index}
-            css={{ paddingLeft: item.tagName === 'H3' ? '$2' : undefined }}
+            css={{
+              paddingLeft: item.tagName === 'H3' ? '$2' : undefined,
+            }}
           >
-            <Link href={`#${generateAnchorSectionId(item.textContent!)}`}>
+            <Link
+              href={`#${generateAnchorSectionId(item.textContent!)}`}
+              css={{
+                fontWeight:
+                  activeHeading === generateAnchorSectionId(item.textContent!)
+                    ? '700'
+                    : undefined,
+              }}
+            >
               {item.textContent}
             </Link>
           </ListItem>
