@@ -4,6 +4,8 @@ import glob from 'glob'
 import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 
+import rehypeMetaAttributes from './rehype-meta-attributes'
+
 const ROOT_PATH = path.join(process.cwd(), 'data')
 
 export function getSourceOfFile(fileName) {
@@ -30,7 +32,13 @@ export const getMdxBySlug = async (basePath: string, slug: string) => {
     path.join(ROOT_PATH, basePath, `${slug}.mdx`),
     'utf8'
   )
-  const { frontmatter, code } = await bundleMDX(source)
+  const { frontmatter, code } = await bundleMDX(source, {
+    xdmOptions: (options) => {
+      options.rehypePlugins = [rehypeMetaAttributes]
+
+      return options
+    },
+  })
 
   return {
     frontmatter: {
