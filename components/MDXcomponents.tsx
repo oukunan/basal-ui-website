@@ -1,7 +1,7 @@
 import Text from './Text'
 import CodeBlock from './CodeBlock'
 import { generateAnchorSectionId } from '../lib/anchorSection'
-import * as Demos from '../demo'
+import * as Demos from './demos'
 
 export const components = {
   h1: (props) => <Text as="h1" css={{ fontSize: '$8' }} {...props} />,
