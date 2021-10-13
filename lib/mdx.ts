@@ -5,6 +5,7 @@ import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 
 import rehypeMetaAttributes from './rehype-meta-attributes'
+import remarkDemoComponent from './remark-demo-component'
 
 const ROOT_PATH = path.join(process.cwd(), 'data')
 
@@ -34,7 +35,14 @@ export const getMdxBySlug = async (basePath: string, slug: string) => {
   )
   const { frontmatter, code } = await bundleMDX(source, {
     xdmOptions: (options) => {
-      options.rehypePlugins = [rehypeMetaAttributes]
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkDemoComponent,
+      ]
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeMetaAttributes,
+      ]
 
       return options
     },

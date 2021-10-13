@@ -1,6 +1,7 @@
 import Text from './Text'
 import CodeBlock from './CodeBlock'
 import { generateAnchorSectionId } from '../lib/anchorSection'
+import * as Demos from '../demo'
 
 export const components = {
   h1: (props) => <Text as="h1" css={{ fontSize: '$8' }} {...props} />,
@@ -24,4 +25,5 @@ export const components = {
   ),
   pre: (props) => <>{props.children}</>,
   code: CodeBlock,
+  ...Demos,
 }
